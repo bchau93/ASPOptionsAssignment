@@ -7,10 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DiplomaDataModel;
+using System.Web.Security;
 
 namespace OptionsWebsite.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class OptionsController : Controller
     {
         private OptionsContext db = new OptionsContext();
@@ -18,28 +19,52 @@ namespace OptionsWebsite.Controllers
         // GET: Options
         public ActionResult Index()
         {
-            return View(db.Options.ToList());
+
+            if (Request.IsAuthenticated && Roles.IsUserInRole("Admin"))
+            {
+                return View(db.Options.ToList());
+            }
+            else
+            {
+                return View("Error");
+            }          
         }
 
         // GET: Options/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (Request.IsAuthenticated && Roles.IsUserInRole("Admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Options options = db.Options.Find(id);
+                if (options == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(options);
             }
-            Options options = db.Options.Find(id);
-            if (options == null)
+            else
             {
-                return HttpNotFound();
+                return View("Error");
             }
-            return View(options);
+           
         }
 
         // GET: Options/Create
         public ActionResult Create()
         {
-            return View();
+            if (Request.IsAuthenticated && Roles.IsUserInRole("Admin"))
+            {
+               return View();
+            }
+            else
+            {
+                return View("Error");
+            }
+            
         }
 
         // POST: Options/Create
@@ -49,29 +74,47 @@ namespace OptionsWebsite.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "OptionsId,Title,isActive")] Options options)
         {
-            if (ModelState.IsValid)
-            {
-                db.Options.Add(options);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
 
-            return View(options);
+            if (Request.IsAuthenticated && Roles.IsUserInRole("Admin"))
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Options.Add(options);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                return View(options);
+            }
+            else
+            {
+                return View("Error");
+            }
+            
         }
 
         // GET: Options/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+
+            if (Request.IsAuthenticated && Roles.IsUserInRole("Admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Options options = db.Options.Find(id);
+                if (options == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(options);
             }
-            Options options = db.Options.Find(id);
-            if (options == null)
+            else
             {
-                return HttpNotFound();
+                return View("Error");
             }
-            return View(options);
+            
         }
 
         // POST: Options/Edit/5
@@ -81,28 +124,46 @@ namespace OptionsWebsite.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "OptionsId,Title,isActive")] Options options)
         {
-            if (ModelState.IsValid)
+
+            if (Request.IsAuthenticated && Roles.IsUserInRole("Admin"))
             {
-                db.Entry(options).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(options).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(options);
             }
-            return View(options);
+            else
+            {
+                return View("Error");
+            }
+           
         }
 
         // GET: Options/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+
+            if (Request.IsAuthenticated && Roles.IsUserInRole("Admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Options options = db.Options.Find(id);
+                if (options == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(options);
             }
-            Options options = db.Options.Find(id);
-            if (options == null)
+            else
             {
-                return HttpNotFound();
+                return View("Error");
             }
-            return View(options);
+           
         }
 
         // POST: Options/Delete/5
@@ -110,10 +171,19 @@ namespace OptionsWebsite.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Options options = db.Options.Find(id);
-            db.Options.Remove(options);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+
+            if (Request.IsAuthenticated && Roles.IsUserInRole("Admin"))
+            {
+                Options options = db.Options.Find(id);
+                db.Options.Remove(options);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View("Error");
+            }
+            
         }
 
         protected override void Dispose(bool disposing)

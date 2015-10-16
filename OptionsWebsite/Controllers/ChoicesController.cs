@@ -62,6 +62,7 @@ namespace OptionsWebsite.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin, Student")]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ChoiceId,YearTermId,StudentId,StudentFirstName,StudentLastName,FirstChoiceOptionId,SecondChoiceOptionId,ThirdChoiceOptionId,FourthChoiceOptionId,SelectionDate")] Choice choice)
         {
@@ -98,7 +99,7 @@ namespace OptionsWebsite.Controllers
                     choice.SelectionDate = DateTime.Now;
                     db.Choices.Add(choice);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Home");
                 }
                 
             }
