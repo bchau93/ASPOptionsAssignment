@@ -1,0 +1,81 @@
+﻿@model IEnumerable<DiplomaDataModel.Choice>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstChoiceOption.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FourthChoiceOption.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SecondChoiceOption.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ThirdChoiceOption.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.YearTerm.YearTermId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentFirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentLastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SelectionDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstChoiceOption.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FourthChoiceOption.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SecondChoiceOption.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ThirdChoiceOption.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.YearTerm.YearTermId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StudentId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StudentFirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StudentLastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SelectionDate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ChoiceId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ChoiceId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ChoiceId })
+        </td>
+    </tr>
+}
+
+</table>

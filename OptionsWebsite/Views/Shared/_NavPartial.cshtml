@@ -1,0 +1,18 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated && Roles.IsUserInRole("Admin"))
+{
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("Options Selection", "Index", "Choices")</li>
+        <li>@Html.ActionLink("Options", "Index", "Options")</li>
+        <li>@Html.ActionLink("YearTerms", "Index", "YearTerms")</li>
+    </ul>
+}
+else if(Request.IsAuthenticated && Roles.IsUserInRole("Student"))
+{
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("Options Selection", "Create", "Choices")</li>
+
+    </ul>
+}
+else{
+}
