@@ -19,6 +19,7 @@ namespace DiplomaDataModel
         public int YearTermId { get; set; }
 
         [ForeignKey("YearTermId")]
+        [Display(Name = "Year/Term Id")]
         public YearTerm YearTerm { get; set; }
 
         [Required]
@@ -38,16 +39,16 @@ namespace DiplomaDataModel
 
         [Display(Name = "First Choice")]
         [UIHint("_FirstChoice")]
-        public int FirstChoiceOptionId { get; set; }
+        public int? FirstChoiceOptionId { get; set; }
         [Display(Name = "Second Choice")]
         [UIHint("_SecondChoice")]
-        public int SecondChoiceOptionId { get; set; }
+        public int? SecondChoiceOptionId { get; set; }
         [Display(Name = "Third Choice")]
         [UIHint("_ThirdChoice")]
-        public int ThirdChoiceOptionId { get; set; }
+        public int? ThirdChoiceOptionId { get; set; }
         [Display(Name = "Fourth Choice")]
         [UIHint("_FourthChoice")]
-        public int FourthChoiceOptionId { get; set; }
+        public int? FourthChoiceOptionId { get; set; }
 
         [ForeignKey("FirstChoiceOptionId")]
         public Options FirstChoiceOption { get; set; }

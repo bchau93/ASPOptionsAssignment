@@ -12,19 +12,20 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FirstChoiceOption.Title)
+            First Choice
+        </th>
+       
+        <th>
+            Second Choice
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FourthChoiceOption.Title)
+            Third Choice
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SecondChoiceOption.Title)
+            Fourth Choice
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ThirdChoiceOption.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.YearTerm.YearTermId)
+            Year/Term Id
         </th>
         <th>
             @Html.DisplayNameFor(model => model.StudentId)
@@ -36,7 +37,7 @@
             @Html.DisplayNameFor(model => model.StudentLastName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SelectionDate)
+            Selection Date
         </th>
         <th></th>
     </tr>
@@ -46,14 +47,15 @@
         <td>
             @Html.DisplayFor(modelItem => item.FirstChoiceOption.Title)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FourthChoiceOption.Title)
-        </td>
+       
         <td>
             @Html.DisplayFor(modelItem => item.SecondChoiceOption.Title)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ThirdChoiceOption.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FourthChoiceOption.Title)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.YearTerm.YearTermId)

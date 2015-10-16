@@ -176,14 +176,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Identity\201510152144345_InitialCreate.cs" />
-    <Compile Include="Migrations\Identity\201510152144345_InitialCreate.Designer.cs">
-      <DependentUpon>201510152144345_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\Identity\201510162236014_InitialCreate.cs" />
+    <Compile Include="Migrations\Identity\201510162236014_InitialCreate.Designer.cs">
+      <DependentUpon>201510162236014_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Identity\Configuration.cs" />
-    <Compile Include="Migrations\Option\201510152133320_InitialCreate.cs" />
-    <Compile Include="Migrations\Option\201510152133320_InitialCreate.Designer.cs">
-      <DependentUpon>201510152133320_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\Option\201510162235400_InitialCreate.cs" />
+    <Compile Include="Migrations\Option\201510162235400_InitialCreate.Designer.cs">
+      <DependentUpon>201510162235400_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Option\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -286,11 +286,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\Identity\201510152144345_InitialCreate.resx">
-      <DependentUpon>201510152144345_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\Identity\201510162236014_InitialCreate.resx">
+      <DependentUpon>201510162236014_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\Option\201510152133320_InitialCreate.resx">
-      <DependentUpon>201510152133320_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\Option\201510162235400_InitialCreate.resx">
+      <DependentUpon>201510162235400_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -16,18 +16,18 @@ namespace OptionsWebsite.Migrations.Option
                         StudentId = c.String(nullable: false),
                         StudentFirstName = c.String(nullable: false, maxLength: 40),
                         StudentLastName = c.String(nullable: false, maxLength: 40),
-                        FirstChoiceOptionId = c.Int(nullable: false),
-                        SecondChoiceOptionId = c.Int(nullable: false),
-                        ThirdChoiceOptionId = c.Int(nullable: false),
-                        FourthChoiceOptionId = c.Int(nullable: false),
+                        FirstChoiceOptionId = c.Int(),
+                        SecondChoiceOptionId = c.Int(),
+                        ThirdChoiceOptionId = c.Int(),
+                        FourthChoiceOptionId = c.Int(),
                         SelectionDate = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.ChoiceId)
-                .ForeignKey("dbo.Options", t => t.FirstChoiceOptionId, cascadeDelete: false)
-                .ForeignKey("dbo.Options", t => t.FourthChoiceOptionId, cascadeDelete: false)
-                .ForeignKey("dbo.Options", t => t.SecondChoiceOptionId, cascadeDelete: false)
-                .ForeignKey("dbo.Options", t => t.ThirdChoiceOptionId, cascadeDelete: false)
-                .ForeignKey("dbo.YearTerms", t => t.YearTermId, cascadeDelete: false)
+                .ForeignKey("dbo.Options", t => t.FirstChoiceOptionId)
+                .ForeignKey("dbo.Options", t => t.FourthChoiceOptionId)
+                .ForeignKey("dbo.Options", t => t.SecondChoiceOptionId)
+                .ForeignKey("dbo.Options", t => t.ThirdChoiceOptionId)
+                .ForeignKey("dbo.YearTerms", t => t.YearTermId, cascadeDelete: true)
                 .Index(t => t.YearTermId)
                 .Index(t => t.FirstChoiceOptionId)
                 .Index(t => t.SecondChoiceOptionId)

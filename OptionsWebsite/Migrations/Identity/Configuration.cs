@@ -14,7 +14,6 @@ namespace OptionsWebsite.Migrations.Identity
         {
             AutomaticMigrationsEnabled = false;
             MigrationsDirectory = @"Migrations\Identity";
-            ContextKey = "OptionsWebsite.Models.ApplicationDbContext";
         }
 
         protected override void Seed(OptionsWebsite.Models.ApplicationDbContext context)
