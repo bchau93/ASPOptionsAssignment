@@ -22,6 +22,7 @@ namespace OptionsWebsite.Migrations.Option
                         FourthChoiceOptionId = c.Int(),
                         SelectionDate = c.DateTime(nullable: false),
                     })
+
                 .PrimaryKey(t => t.ChoiceId)
                 .ForeignKey("dbo.Options", t => t.FirstChoiceOptionId)
                 .ForeignKey("dbo.Options", t => t.FourthChoiceOptionId)

@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Student Selections</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -25,7 +25,7 @@
             Fourth Choice
         </th>
         <th>
-            Year/Term Id
+            Year/Term 
         </th>
         <th>
             @Html.DisplayNameFor(model => model.StudentId)
@@ -58,8 +58,8 @@
             @Html.DisplayFor(modelItem => item.FourthChoiceOption.Title)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.YearTerm.YearTermId)
-        </td>
+            @Html.DisplayFor(modelItem => item.YearTerm.Year)/@Html.DisplayFor(modelItem => item.YearTerm.Term)
+            
         <td>
             @Html.DisplayFor(modelItem => item.StudentId)
         </td>

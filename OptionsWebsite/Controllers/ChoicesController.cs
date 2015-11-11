@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using DiplomaDataModel;
 using System.Web.Security;
+using Microsoft.AspNet.Identity;
 
 namespace OptionsWebsite.Controllers
 {
@@ -21,7 +22,12 @@ namespace OptionsWebsite.Controllers
         {
             if (Request.IsAuthenticated && Roles.IsUserInRole("Admin"))
             {
-                var choices = db.Choices.Include(c => c.FirstChoiceOption).Include(c => c.FourthChoiceOption).Include(c => c.SecondChoiceOption).Include(c => c.ThirdChoiceOption).Include(c => c.YearTerm);
+                var choices = db
+                    .Choices.Include(c => c.FirstChoiceOption)
+                    .Include(c => c.FourthChoiceOption)
+                    .Include(c => c.SecondChoiceOption)
+                    .Include(c => c.ThirdChoiceOption)
+                    .Include(c => c.YearTerm);
                 return View(choices.ToList());
             }
             else
@@ -43,6 +49,19 @@ namespace OptionsWebsite.Controllers
             {
                 return HttpNotFound();
             }
+
+            var FirstChoice = db.Options.Find(choice.FirstChoiceOptionId).Title;
+            ViewBag.FirstChoice = FirstChoice;
+            var SecondChoice = db.Options.Find(choice.SecondChoiceOptionId).Title;
+            ViewBag.SecondChoice = SecondChoice;
+            var ThirdChoice = db.Options.Find(choice.ThirdChoiceOptionId).Title;
+            ViewBag.ThirdChoice = ThirdChoice;
+            var FourthChoice = db.Options.Find(choice.FourthChoiceOptionId).Title;
+            ViewBag.FourthChoice = FourthChoice;
+            var Year = db.YearTerms.Find(choice.YearTermId).Year;
+            ViewBag.Year = Year;
+            var Term = db.YearTerms.Find(choice.YearTermId).Term;
+            ViewBag.Term = Term;
             return View(choice);
         }
 
@@ -50,12 +69,14 @@ namespace OptionsWebsite.Controllers
         [Authorize(Roles = "Admin, Student")]
         public ActionResult Create()
         {
+            Choice currentUser = new Choice();
+            currentUser.StudentId = User.Identity.GetUserName();
             ViewBag.FirstChoiceOptionId = new SelectList(db.Options.Where(c => c.isActive == true), "OptionsId", "Title");
             ViewBag.FourthChoiceOptionId = new SelectList(db.Options.Where(c => c.isActive == true), "OptionsId", "Title");
             ViewBag.SecondChoiceOptionId = new SelectList(db.Options.Where(c => c.isActive == true), "OptionsId", "Title");
             ViewBag.ThirdChoiceOptionId = new SelectList(db.Options.Where(c => c.isActive == true), "OptionsId", "Title");
            // ViewBag.YearTermId = new SelectList(db.YearTerms, "YearTermId", "YearTermId");
-            return View();
+            return View(currentUser);
         }
 
         // POST: Choices/Create
@@ -74,6 +95,7 @@ namespace OptionsWebsite.Controllers
                 ViewBag.FourthChoiceOptionId = new SelectList(db.Options.Where(c => c.isActive == true), "OptionsId", "Title", choice.FourthChoiceOptionId);
                 ViewBag.SecondChoiceOptionId = new SelectList(db.Options.Where(c => c.isActive == true), "OptionsId", "Title", choice.SecondChoiceOptionId);
                 ViewBag.ThirdChoiceOptionId = new SelectList(db.Options.Where(c => c.isActive == true), "OptionsId", "Title", choice.ThirdChoiceOptionId);
+                ModelState.AddModelError("StudentId", "You have already registered for this term");
 
                 return View(choice);
             }
@@ -90,6 +112,7 @@ namespace OptionsWebsite.Controllers
                     ViewBag.FourthChoiceOptionId = new SelectList(db.Options.Where(c => c.isActive == true), "OptionsId", "Title", choice.FourthChoiceOptionId);
                     ViewBag.SecondChoiceOptionId = new SelectList(db.Options.Where(c => c.isActive == true), "OptionsId", "Title", choice.SecondChoiceOptionId);
                     ViewBag.ThirdChoiceOptionId = new SelectList(db.Options.Where(c => c.isActive == true), "OptionsId", "Title", choice.ThirdChoiceOptionId);
+                    ModelState.AddModelError("FourthChoiceOptionId", "Cannot have duplicate selections!");
 
                     return View(choice);
                 }
@@ -165,6 +188,7 @@ namespace OptionsWebsite.Controllers
                         ViewBag.FourthChoiceOptionId = new SelectList(db.Options.Where(c => c.isActive == true), "OptionsId", "Title", choice.FourthChoiceOptionId);
                         ViewBag.SecondChoiceOptionId = new SelectList(db.Options.Where(c => c.isActive == true), "OptionsId", "Title", choice.SecondChoiceOptionId);
                         ViewBag.ThirdChoiceOptionId = new SelectList(db.Options.Where(c => c.isActive == true), "OptionsId", "Title", choice.ThirdChoiceOptionId);
+                        ModelState.AddModelError("FourthChoiceOptionId", "Cannot have duplicate selections!");
 
                         return View(choice);
                     }

@@ -24,6 +24,7 @@ namespace DiplomaDataModel
 
         [Required]
         [Display(Name = "Student Id")]
+        [UIHint("_StudentId")]
         [RegularExpression("^(a00|A00)[0-9]{6}", ErrorMessage = "Invalid Student ID")]
         public string StudentId { get; set; }
 

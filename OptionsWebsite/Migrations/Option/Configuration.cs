@@ -17,80 +17,56 @@ namespace OptionsWebsite.Migrations.Option
 
         protected override void Seed(DiplomaDataModel.OptionsContext context)
         {
-            List<YearTerm> yearterms = new List<YearTerm>();
-            yearterms.Add(new YearTerm()
-            {
-                Year = 2015,
-                Term = 10,
-                isDefault = false,
 
-            });
-            yearterms.Add(new YearTerm()
-            {
-                Year = 2015,
-                Term = 20,
-                isDefault = false,
-
-            });
-            yearterms.Add(new YearTerm()
-            {
-                Year = 2015,
-                Term = 30,
-                isDefault = false,
-
-            });
-            yearterms.Add(new YearTerm()
-            {
-                Year = 2016,
-                Term = 10,
-                isDefault = true,
-
-            });
-
-
-            context.YearTerms.AddRange(yearterms);
+            context.YearTerms.AddOrUpdate(
+                  p => new { p.Year, p.Term },
+                  new YearTerm { Year = 2015, Term = 10, isDefault = false },
+                  new YearTerm { Year = 2015, Term = 20, isDefault = false },
+                  new YearTerm { Year = 2015, Term = 30, isDefault = false },
+                  new YearTerm { Year = 2016, Term = 10, isDefault = true,}
+                );
             context.SaveChanges();
 
-            List<Options> options = new List<Options>();
 
-            options.Add(new Options()
-            {
-                Title = "Data Communications",
-                isActive = true,
-            });
-            options.Add(new Options()
-            {
-                Title = "Client Server",
-                isActive = true,
-            });
-            options.Add(new Options()
-            {
-                Title = "Digital Processing",
-                isActive = true,
-            });
-            options.Add(new Options()
-            {
-                Title = "Information Systems",
-                isActive = true,
-            });
-            options.Add(new Options()
-            {
-                Title = "Database",
-                isActive = false,
-            });
-            options.Add(new Options()
-            {
-                Title = "Web & Mobile",
-                isActive = true,
-            });
-            options.Add(new Options()
-            {
-                Title = "Tech Pro",
-                isActive = false,
-            });
-
-
-            context.Options.AddRange(options);
+            context.Options.AddOrUpdate(
+                 p => new { p.Title ,p.isActive},
+                new Options
+                {
+                    Title = "Data Communications",
+                    isActive = true,
+                },
+                new Options
+                {
+                    Title = "Client Server",
+                    isActive = true,
+                },
+                new Options
+                {
+                    Title = "Digital Processing",
+                    isActive = true,
+                },
+                new Options
+                {
+                    Title = "Information Systems",
+                    isActive = true,
+                },
+                new Options
+                {
+                    Title = "Database",
+                    isActive = false,
+                },
+                new Options
+                {
+                    Title = "Web & Mobile",
+                    isActive = true,
+                },
+                new Options
+                {
+                    Title = "Tech Pro",
+                    isActive = false,
+                }
+               );
+           
             context.SaveChanges();
         }
     }

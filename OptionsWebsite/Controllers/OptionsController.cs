@@ -84,7 +84,7 @@ namespace OptionsWebsite.Controllers
                     return RedirectToAction("Index");
                 }
 
-                return View(options);
+                return View("Error");
             }
             else
             {
@@ -175,6 +175,19 @@ namespace OptionsWebsite.Controllers
             if (Request.IsAuthenticated && Roles.IsUserInRole("Admin"))
             {
                 Options options = db.Options.Find(id);
+                
+                var choices = db.Choices
+                    .Where(c => c.FirstChoiceOptionId.Value.Equals(options.OptionsId) 
+                    || c.SecondChoiceOptionId.Value.Equals(options.OptionsId) 
+                    || c.ThirdChoiceOptionId.Value.Equals(options.OptionsId) 
+                    || c.FourthChoiceOptionId.Value.Equals(options.OptionsId)).ToArray();
+
+                foreach (Choice choice in choices)
+                {
+                    db.Choices.Remove(choice);
+                    db.SaveChanges();
+                }
+                
                 db.Options.Remove(options);
                 db.SaveChanges();
                 return RedirectToAction("Index");

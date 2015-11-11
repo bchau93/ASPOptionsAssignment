@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using OptionsWebsite.Models;
+using System.Web.Security;
 
 namespace OptionsWebsite.Controllers
 {
@@ -151,10 +152,17 @@ namespace OptionsWebsite.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName};
+                var user = new ApplicationUser { Email = model.Email, UserName = model.UserName};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    if (!Roles.RoleExists("Student"))
+                    {
+                        Roles.CreateRole("Student");
+                    }
+
+                    UserManager.SetLockoutEnabled(user.Id, false);
+                    Roles.AddUserToRole(model.UserName, "Student");
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
@@ -169,6 +177,7 @@ namespace OptionsWebsite.Controllers
             }
 
             // If we got this far, something failed, redisplay form
+            Console.Write("hello");
             return View(model);
         }
 

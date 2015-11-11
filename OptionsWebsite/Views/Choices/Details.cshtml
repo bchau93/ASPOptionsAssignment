@@ -1,4 +1,5 @@
 ﻿@model DiplomaDataModel.Choice
+    
 
 @{
     ViewBag.Title = "Details";
@@ -11,43 +12,44 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.FirstChoiceOption.Title)
+            First Choice
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.FirstChoiceOption.Title)
+            @ViewBag.FirstChoice       
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.FourthChoiceOption.Title)
+            Second Choice
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.FourthChoiceOption.Title)
+            @ViewBag.SecondChoice
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.SecondChoiceOption.Title)
+            Third Choice
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.SecondChoiceOption.Title)
+            @ViewBag.ThirdChoice
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ThirdChoiceOption.Title)
+            Fourth Choice
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ThirdChoiceOption.Title)
+           @ViewBag.FourthChoice
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.YearTerm.YearTermId)
+            Year/Term
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.YearTerm.YearTermId)
+            @ViewBag.Year/@ViewBag.Term
+           
         </dd>
 
         <dt>

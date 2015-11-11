@@ -90,7 +90,7 @@ namespace OptionsWebsite.Controllers
             {
                 if (yearTerm.isDefault == true)
                 {
-                    if(db.YearTerms.Where(c => c.isDefault == true).Count() != 0)
+                    if(db.YearTerms.Where(c => c.isDefault == true && c.YearTermId == yearTerm.YearTermId).Count() == 0)
                     {
                         var current = db.YearTerms.Where(c => c.isDefault == true).First();
                         current.isDefault = false;

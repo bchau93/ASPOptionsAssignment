@@ -50,7 +50,7 @@ namespace OptionsWebsite.Models
     {
         [Required]
         [Display(Name = "Student Id")]
-        [RegularExpression("^(a00|A00)[0-9]{6}", ErrorMessage = "Invalid Student ID")]
+        [RegularExpression(@"(a00|A00)\d{6}", ErrorMessage = "Invalid Student ID")]
         public string UserName { get; set; }
 
         [Required]
@@ -64,8 +64,14 @@ namespace OptionsWebsite.Models
 
     public class RegisterViewModel
     {
+
         [Required]
-        [RegularExpression("^(a00|A00)[0-9]{6}", ErrorMessage = "Invalid Student ID")]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
+        [Required]
+        [RegularExpression(@"(a00|A00)\d{6}", ErrorMessage = "Invalid Student ID")]
         [Display(Name = "Student Id")]
         public string UserName { get; set; }
 
