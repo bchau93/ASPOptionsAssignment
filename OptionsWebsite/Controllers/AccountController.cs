@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using OptionsWebsite.Models;
 using System.Web.Security;
+using DiplomaDataModel;
 
 namespace OptionsWebsite.Controllers
 {

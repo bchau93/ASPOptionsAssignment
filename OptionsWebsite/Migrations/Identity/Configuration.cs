@@ -1,5 +1,6 @@
 namespace OptionsWebsite.Migrations.Identity
 {
+    using DiplomaDataModel;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using Models;
@@ -8,7 +9,7 @@ namespace OptionsWebsite.Migrations.Identity
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<OptionsWebsite.Models.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<DiplomaDataModel.ApplicationDbContext>
     {
         public Configuration()
         {
@@ -16,7 +17,7 @@ namespace OptionsWebsite.Migrations.Identity
             MigrationsDirectory = @"Migrations\Identity";
         }
 
-        protected override void Seed(OptionsWebsite.Models.ApplicationDbContext context)
+        protected override void Seed(DiplomaDataModel.ApplicationDbContext context)
         {
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             if (!roleManager.RoleExists("Admin"))
