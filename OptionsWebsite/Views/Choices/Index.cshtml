@@ -4,80 +4,28 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Student Selections</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            First Choice
-        </th>
-       
-        <th>
-            Second Choice
-        </th>
-        <th>
-            Third Choice
-        </th>
-        <th>
-            Fourth Choice
-        </th>
-        <th>
-            Year/Term 
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StudentId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StudentFirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StudentLastName)
-        </th>
-        <th>
-            Selection Date
-        </th>
-        <th></th>
-    </tr>
+<br />
+<div id="container">
+    <label for="ddlYearTerms"><strong>Select a YearTerm</strong></label><br />
+    @Html.DropDownList("id", (IEnumerable<SelectListItem>)ViewBag.slItems, new { id = "ddlYearTerms"})
+    <br /><br/>
+   
+    <div id="dvChoiceResults">
+        @{Html.RenderPartial("_IndexPartial", Model);}
+    </div>
+    
+</div>  
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstChoiceOption.Title)
-        </td>
-       
-        <td>
-            @Html.DisplayFor(modelItem => item.SecondChoiceOption.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ThirdChoiceOption.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FourthChoiceOption.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.YearTerm.Year)/@Html.DisplayFor(modelItem => item.YearTerm.Term)
-            
-        <td>
-            @Html.DisplayFor(modelItem => item.StudentId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StudentFirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StudentLastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SelectionDate)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ChoiceId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ChoiceId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ChoiceId })
-        </td>
-    </tr>
+@section Scripts{
+<script type="text/javascript"  >
+     
+    $(document).ready(function () {
+        $("#ddlYearTerms").change(function () {
+            var termId =  $("#ddlYearTerms").val();
+               $("#dvChoiceResults").load('@(Url.Action("GetChoices","Choices",null, Request.Url.Scheme))?Id=' + termId);
+        });
+    });
+
+</script>  
 }
-
-</table>

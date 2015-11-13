@@ -30,6 +30,6 @@ namespace DiplomaDataModel
             return new ApplicationDbContext();
         }
 
-        //public System.Data.Entity.DbSet<DiplomaDataModel.ApplicationUser> ApplicationUsers { get; set; }
+        
     }
 }

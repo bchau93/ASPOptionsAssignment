@@ -10,6 +10,7 @@ using DiplomaDataModel;
 using System.Web.Security;
 using Microsoft.AspNet.Identity;
 
+
 namespace OptionsWebsite.Controllers
 {
     public class ChoicesController : Controller
@@ -20,22 +21,60 @@ namespace OptionsWebsite.Controllers
         //[Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
+
             if (Request.IsAuthenticated && Roles.IsUserInRole("Admin"))
             {
+               
+                ViewBag.slItems = new SelectList(db.YearTerms
+                    .Select(c => new { c.YearTermId,
+                        name = c.Year + "" + c.Term + " " +
+                        (c.Term == 10 ? "Winter": 
+                        c.Term == 20 ? "Spring/Summer": 
+                        c.Term == 30 ? "Fall": "Default")}), 
+                        "YearTermId", "name");
                 var choices = db
-                    .Choices.Include(c => c.FirstChoiceOption)
+                    .Choices
+                    .Include(c => c.FirstChoiceOption)
                     .Include(c => c.FourthChoiceOption)
                     .Include(c => c.SecondChoiceOption)
                     .Include(c => c.ThirdChoiceOption)
-                    .Include(c => c.YearTerm);
+                    .Where(c => c.YearTermId == db.YearTerms.Where( y => y.isDefault == true ).Select(y=> y.YearTermId).FirstOrDefault());
                 return View(choices.ToList());
             }
             else
             {
                 return View("Error");
             }
-   
         }
+
+        [HttpGet]
+        public ActionResult GetChoices(int Id)
+        {
+            if (Request.IsAuthenticated && Roles.IsUserInRole("Admin"))
+            {
+                var choices = db
+                    .Choices
+                    .Include(c => c.FirstChoiceOption)
+                    .Include(c => c.FourthChoiceOption)
+                    .Include(c => c.SecondChoiceOption)
+                    .Include(c => c.ThirdChoiceOption)
+                    .Where(c => c.YearTermId == Id);
+                return PartialView("_IndexPartial", choices);
+            }
+            else
+            {
+                return View("Error");
+            }
+        }
+
+    
+        public ActionResult GetCharts(int Id)
+        {
+
+          
+            return PartialView();
+        }
+
 
         // GET: Choices/Details/5
         public ActionResult Details(int? id)

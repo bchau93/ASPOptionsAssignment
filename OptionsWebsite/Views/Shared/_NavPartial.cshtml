@@ -5,6 +5,8 @@
         <li>@Html.ActionLink("Options Selection", "Index", "Choices")</li>
         <li>@Html.ActionLink("Options", "Index", "Options")</li>
         <li>@Html.ActionLink("Terms", "Index", "YearTerms")</li>
+        <li>@Html.ActionLink("Roles", "Index", "Roles")</li>
+        <li>@Html.ActionLink("Users", "Index", "Users")</li>
     </ul>
 }
 else if(Request.IsAuthenticated && Roles.IsUserInRole("Student"))

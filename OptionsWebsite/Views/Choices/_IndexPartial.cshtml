@@ -1,0 +1,67 @@
+﻿@model IEnumerable<DiplomaDataModel.Choice>
+<table>
+    <thead>
+        <tr>
+            <th style="padding-right: 11px">
+                @Html.DisplayNameFor(model => model.StudentId)  
+            </th>
+            <th style="padding-right: 11px">
+                @Html.DisplayNameFor(model => model.StudentFirstName)
+            </th>
+            <th style="padding-right: 11px">
+                @Html.DisplayNameFor(model => model.StudentLastName)
+            </th>
+            <th style="padding-right: 11px">
+                First Choice
+            </th>
+            <th style="padding-right: 11px">
+                Second Choice
+            </th>
+            <th style="padding-right: 11px">
+                Third Choice
+            </th>
+            <th style="padding-right: 11px">
+                Fourth Choice
+            </th>
+            <th style="padding-right: 11px">
+                Selection Date
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="padding-right: 11px">
+                    @Html.DisplayFor(modelItem => item.StudentId)
+                </td>
+                <td style="padding-right: 11px">
+                    @Html.DisplayFor(modelItem => item.StudentFirstName)
+                </td>
+                <td style="padding-right: 11px">
+                    @Html.DisplayFor(modelItem => item.StudentLastName)
+                </td>
+                <td style="padding-right: 11px">
+                    @Html.DisplayFor(modelItem => item.FirstChoiceOption.Title)
+                </td>
+                <td style="padding-right: 11px">
+                    @Html.DisplayFor(modelItem => item.SecondChoiceOption.Title)
+                </td>
+                <td style="padding-right: 11px">
+                    @Html.DisplayFor(modelItem => item.ThirdChoiceOption.Title)
+                </td>
+                <td style="padding-right: 11px">
+                    @Html.DisplayFor(modelItem => item.FourthChoiceOption.Title)
+                </td>
+                <td style="padding-right: 11px">
+                    @Html.DisplayFor(modelItem => item.SelectionDate)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ChoiceId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ChoiceId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ChoiceId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>  

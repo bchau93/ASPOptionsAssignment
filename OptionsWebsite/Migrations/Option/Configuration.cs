@@ -66,8 +66,10 @@ namespace OptionsWebsite.Migrations.Option
                     isActive = false,
                 }
                );
-           
+
             context.SaveChanges();
+
+         
         }
     }
 }
